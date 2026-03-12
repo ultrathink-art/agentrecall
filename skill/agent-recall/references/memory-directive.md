@@ -12,7 +12,7 @@ Contains accumulated knowledge — mistakes, learnings, feedback, session log. T
 
 Update your memory file. Add entries to relevant sections. Be specific and actionable.
 
-Run `agentmemory check` to validate size limits. Use `agentmemory check --fix` if over limit.
+Run `agentrecall check` to validate size limits. Use `agentrecall check --fix` if over limit.
 
 ### What to record
 
@@ -38,7 +38,7 @@ Append new entries at TOP of each section (newest first). Date prefix: `[YYYY-MM
 - Remove entries duplicated in project instructions
 - Remove stale entries (fixed bugs, removed workarounds)
 - Consolidate duplicate lessons into one entry
-- Use long-term memory (`agentmemory store`) for growing lists
+- Use long-term memory (`agentrecall store`) for growing lists
 
 ## Long-Term Memory
 
@@ -48,12 +48,12 @@ For data that grows unboundedly (exhausted topics, known patterns, recurring ref
 
 ```bash
 # Before creating content that might duplicate past work:
-agentmemory search <role> <category> "<concept keywords>"
+agentrecall search <role> <category> "<concept keywords>"
 # Exit 0 = matches found → skip/choose different topic
 # Exit 1 = no matches → safe to proceed
 
 # After completing work:
-agentmemory store <role> <category> "<what you did>"
+agentrecall store <role> <category> "<what you did>"
 ```
 
 ## Memory File Template

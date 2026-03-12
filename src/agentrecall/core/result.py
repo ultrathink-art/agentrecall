@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional
 
 @dataclass
 class Result:
-    """Uniform return type for all agentmemory operations."""
+    """Uniform return type for all agentrecall operations."""
 
     text: Optional[str] = None
     created_at: Optional[str] = None

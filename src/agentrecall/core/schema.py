@@ -6,7 +6,7 @@ import sqlite3
 from pathlib import Path
 from typing import Optional
 
-MEMORY_HOME = os.environ.get("AGENT_MEMORY_HOME", os.path.expanduser("~/.agentmemory"))
+MEMORY_HOME = os.environ.get("AGENT_RECALL_HOME", os.path.expanduser("~/.agentrecall"))
 DB_NAME = "memory.sqlite3"
 
 _connection: Optional[sqlite3.Connection] = None

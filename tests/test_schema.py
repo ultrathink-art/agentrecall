@@ -4,7 +4,7 @@ import sqlite3
 
 import pytest
 
-from agentmemory.core.schema import (
+from agentrecall.core.schema import (
     ensure_schema,
     get_connection,
     get_db_path,
@@ -98,10 +98,10 @@ class TestGetConnection:
 
 class TestGetDbPath:
     def test_default_path(self, monkeypatch):
-        monkeypatch.delenv("AGENT_MEMORY_HOME", raising=False)
+        monkeypatch.delenv("AGENT_RECALL_HOME", raising=False)
         path = get_db_path()
         assert path.endswith("memory.sqlite3")
-        assert ".agentmemory" in path
+        assert ".agentrecall" in path
 
     def test_custom_path(self):
         path = get_db_path("/custom/dir")

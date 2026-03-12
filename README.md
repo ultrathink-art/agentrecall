@@ -1,7 +1,7 @@
-# AgentMemory
+# AgentRecall
 
-[![PyPI](https://img.shields.io/pypi/v/agentmemory)](https://pypi.org/project/agentmemory/)
-[![Python](https://img.shields.io/pypi/pyversions/agentmemory)](https://pypi.org/project/agentmemory/)
+[![PyPI](https://img.shields.io/pypi/v/agentrecall)](https://pypi.org/project/agentrecall/)
+[![Python](https://img.shields.io/pypi/pyversions/agentrecall)](https://pypi.org/project/agentrecall/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Persistent two-tier memory for AI agents. Battle-tested across 134 sessions with 10 agent roles.
@@ -11,14 +11,14 @@ Persistent two-tier memory for AI agents. Battle-tested across 134 sessions with
 ## Install
 
 ```bash
-pip install agentmemory
+pip install agentrecall
 ```
 
 Zero required dependencies. SQLite is Python stdlib.
 
 Optional semantic search:
 ```bash
-pip install agentmemory[embeddings]
+pip install agentrecall[embeddings]
 export OPENAI_API_KEY="sk-..."
 ```
 
@@ -28,26 +28,26 @@ export OPENAI_API_KEY="sk-..."
 
 ```bash
 # Initialize
-agentmemory init
+agentrecall init
 
 # Store a memory (auto-dedup via cosine similarity >0.92)
-agentmemory store coder gotchas "kamal app exec spawns new container, use docker exec"
-agentmemory store social exhausted_stories "blue-green deploy order loss" --tags deploy,sqlite
+agentrecall store coder gotchas "kamal app exec spawns new container, use docker exec"
+agentrecall store social exhausted_stories "blue-green deploy order loss" --tags deploy,sqlite
 
 # Search (semantic + keyword fallback)
-agentmemory search coder gotchas "kamal file not found"
+agentrecall search coder gotchas "kamal file not found"
 
 # List categories
-agentmemory list coder
+agentrecall list coder
 
 # Check health
-agentmemory check --all
+agentrecall check --all
 ```
 
 ### Python API
 
 ```python
-from agentmemory import MemoryStore, MemorySearch
+from agentrecall import MemoryStore, MemorySearch
 
 # Store
 store = MemoryStore()
@@ -95,10 +95,10 @@ Works fully offline without an OpenAI API key:
 
 ## Agent Skills
 
-Copy `skill/agent-memory/` into your project's skills directory for use with Claude Code, Codex, Cursor, Copilot, Cline, or Goose.
+Copy `skill/agent-recall/` into your project's skills directory for use with Claude Code, Codex, Cursor, Copilot, Cline, or Goose.
 
 ```bash
-cp -r skill/agent-memory/ .claude/skills/agent-memory/
+cp -r skill/agent-recall/ .claude/skills/agent-recall/
 ```
 
 ## Configuration
@@ -107,19 +107,19 @@ Environment variables:
 
 | Variable | Default | Description |
 |---|---|---|
-| `AGENT_MEMORY_HOME` | `~/.agentmemory` | Memory storage directory |
+| `AGENT_RECALL_HOME` | `~/.agentrecall` | Memory storage directory |
 | `OPENAI_API_KEY` | (none) | OpenAI API key for embeddings |
 | `UT_OPENAI_API_KEY` | (none) | Preferred over `OPENAI_API_KEY` |
 
 ## CLI Reference
 
 ```
-agentmemory store <role> <category> "text" [--tags t1,t2] [--db path]
-agentmemory search <role> <category> "query" [--db path]
-agentmemory list <role> [--db path]
-agentmemory check [--fix] [--long-term] [--all] [--dir path] [--db path]
-agentmemory init [--dir path]
-agentmemory migrate [--dry-run] [--rebuild] [--dir path] [--db path]
+agentrecall store <role> <category> "text" [--tags t1,t2] [--db path]
+agentrecall search <role> <category> "query" [--db path]
+agentrecall list <role> [--db path]
+agentrecall check [--fix] [--long-term] [--all] [--dir path] [--db path]
+agentrecall init [--dir path]
+agentrecall migrate [--dry-run] [--rebuild] [--dir path] [--db path]
 ```
 
 Exit codes: `0` = success/found, `1` = not-found/validation-fail, `2` = input error.
@@ -129,8 +129,8 @@ Exit codes: `0` = success/found, `1` = not-found/validation-fail, `2` = input er
 If you have existing JSONL memory files:
 
 ```bash
-agentmemory migrate --dir /path/to/memory/
-agentmemory migrate --rebuild  # Re-embed entries missing embeddings
+agentrecall migrate --dir /path/to/memory/
+agentrecall migrate --rebuild  # Re-embed entries missing embeddings
 ```
 
 ## License

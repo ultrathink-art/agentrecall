@@ -22,7 +22,7 @@ Any agent can create categories by storing the first entry. Convention: `snake_c
 Just store an entry — the category is created implicitly:
 
 ```bash
-agentmemory store myagent new_category "first entry in this category"
+agentrecall store myagent new_category "first entry in this category"
 ```
 
 ## Category Size Guidelines

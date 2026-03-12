@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Initialize agentmemory for a new project.
+"""Initialize agentrecall for a new project.
 
 Usage:
     python setup.py [--dir PATH]
 """
 import sys
 
-from agentmemory.cli import main as cli_main
+from agentrecall.cli import main as cli_main
 
 
 def main():

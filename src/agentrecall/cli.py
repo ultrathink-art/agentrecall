@@ -1,7 +1,7 @@
-"""Top-level CLI dispatcher for agentmemory.
+"""Top-level CLI dispatcher for agentrecall.
 
 Usage:
-    agentmemory <command> [options]
+    agentrecall <command> [options]
 
 Commands:
     store    Store an entry with semantic dedup
@@ -17,7 +17,7 @@ import argparse
 import os
 import sys
 
-from agentmemory import __version__
+from agentrecall import __version__
 
 
 def _add_store_parser(subparsers):
@@ -75,29 +75,29 @@ def _add_migrate_parser(subparsers):
 
 
 def _cmd_store(args):
-    from agentmemory.longterm.store import run_store
+    from agentrecall.longterm.store import run_store
 
     tags = [t.strip() for t in args.tags.split(",") if t.strip()] if args.tags else []
     return run_store(args.role, args.category, args.text, tags=tags, db_path=args.db)
 
 
 def _cmd_search(args):
-    from agentmemory.longterm.search import run_search
+    from agentrecall.longterm.search import run_search
 
     return run_search(args.role, args.category, args.query, db_path=args.db)
 
 
 def _cmd_list(args):
-    from agentmemory.longterm.search import run_list
+    from agentrecall.longterm.search import run_list
 
     return run_list(args.role, db_path=args.db)
 
 
 def _cmd_check(args):
-    from agentmemory.shortterm.check import check_directory, MAX_LINES, MAX_SESSION_LOG_ENTRIES
-    from agentmemory.core.schema import get_db_path
+    from agentrecall.shortterm.check import check_directory, MAX_LINES, MAX_SESSION_LOG_ENTRIES
+    from agentrecall.core.schema import get_db_path
 
-    memory_dir = args.dir or os.environ.get("AGENT_MEMORY_HOME", os.path.expanduser("~/.agentmemory"))
+    memory_dir = args.dir or os.environ.get("AGENT_RECALL_HOME", os.path.expanduser("~/.agentrecall"))
     db_path = args.db or get_db_path(memory_dir)
 
     if args.long_term and not args.all:
@@ -139,11 +139,11 @@ def _cmd_check(args):
     if any_fail:
         print(f"FAILED: files exceed {MAX_LINES}-line limit")
         if not args.fix:
-            print("Run `agentmemory check --fix` to auto-prune session logs")
+            print("Run `agentrecall check --fix` to auto-prune session logs")
     elif any_warn:
         print(f"WARN: Some files have >{MAX_SESSION_LOG_ENTRIES} session log entries")
         if not args.fix:
-            print("Run `agentmemory check --fix` to auto-prune")
+            print("Run `agentrecall check --fix` to auto-prune")
     else:
         print("All files within limits")
 
@@ -166,7 +166,7 @@ def _check_long_term(db_path: str) -> int:
 
     if not os.path.exists(db_path):
         print(f"\u2717 DB not found: {db_path}")
-        print("  Long-term memory not initialized. Run `agentmemory init` to create.")
+        print("  Long-term memory not initialized. Run `agentrecall init` to create.")
         return 1
 
     db_size = os.path.getsize(db_path)
@@ -229,18 +229,18 @@ def _check_long_term(db_path: str) -> int:
 
 
 def _cmd_init(args):
-    from agentmemory.core.schema import get_connection, get_db_path
-    from agentmemory.shortterm.template import generate_template
+    from agentrecall.core.schema import get_connection, get_db_path
+    from agentrecall.shortterm.template import generate_template
 
     memory_home = args.dir or os.environ.get(
-        "AGENT_MEMORY_HOME", os.path.expanduser("~/.agentmemory")
+        "AGENT_RECALL_HOME", os.path.expanduser("~/.agentrecall")
     )
     os.makedirs(memory_home, exist_ok=True)
 
     db_path = get_db_path(memory_home)
     get_connection(db_path)
 
-    print(f"Initialized agentmemory at {memory_home}")
+    print(f"Initialized agentrecall at {memory_home}")
     print(f"  Database: {db_path}")
     print()
     print("Create a memory file for an agent role:")
@@ -249,11 +249,11 @@ def _cmd_init(args):
 
 
 def _cmd_migrate(args):
-    from agentmemory.longterm.migrate import run_migrate, run_rebuild
-    from agentmemory.core.schema import get_db_path
+    from agentrecall.longterm.migrate import run_migrate, run_rebuild
+    from agentrecall.core.schema import get_db_path
 
     memory_dir = args.dir or os.environ.get(
-        "AGENT_MEMORY_HOME", os.path.expanduser("~/.agentmemory")
+        "AGENT_RECALL_HOME", os.path.expanduser("~/.agentrecall")
     )
     db_path = args.db or get_db_path(memory_dir)
 
@@ -264,12 +264,12 @@ def _cmd_migrate(args):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        prog="agentmemory",
+        prog="agentrecall",
         description="Persistent two-tier memory for AI agents",
     )
     parser.add_argument(
         "--version", action="version",
-        version=f"agentmemory {__version__}",
+        version=f"agentrecall {__version__}",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")

@@ -7,7 +7,7 @@ Usage:
 """
 import sys
 
-from agentmemory.longterm.search import run_search, run_list
+from agentrecall.longterm.search import run_search, run_list
 
 
 def main():

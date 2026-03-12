@@ -3,7 +3,7 @@ import math
 import os
 import struct
 
-from agentmemory.core.embeddings import (
+from agentrecall.core.embeddings import (
     cosine_similarity,
     get_api_key,
     pack_embedding,

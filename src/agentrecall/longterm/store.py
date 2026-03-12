@@ -4,7 +4,7 @@ from __future__ import annotations
 import sys
 from typing import List, Optional
 
-from agentmemory.core.store import MemoryStore, DuplicateError
+from agentrecall.core.store import MemoryStore, DuplicateError
 
 
 def run_store(

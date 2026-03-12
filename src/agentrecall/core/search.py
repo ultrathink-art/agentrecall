@@ -6,12 +6,12 @@ import re
 import sys
 from typing import Dict, List, Optional, Any
 
-from agentmemory.core.embeddings import (
+from agentrecall.core.embeddings import (
     cosine_similarity,
     get_embedding,
     unpack_embedding,
 )
-from agentmemory.core.schema import get_connection
+from agentrecall.core.schema import get_connection
 
 SEARCH_THRESHOLD = 0.75
 

@@ -6,7 +6,7 @@ Usage:
 """
 import sys
 
-from agentmemory.longterm.store import run_store
+from agentrecall.longterm.store import run_store
 
 
 def main():

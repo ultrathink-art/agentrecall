@@ -5,10 +5,10 @@ import sqlite3
 
 import pytest
 
-from agentmemory.core.schema import ensure_schema, get_connection
-from agentmemory.core.embeddings import pack_embedding, unpack_embedding, EMBEDDING_DIMS
-from agentmemory.longterm.migrate import load_jsonl, run_migrate, run_rebuild
-from tests.conftest import fake_embedding
+from agentrecall.core.schema import ensure_schema, get_connection
+from agentrecall.core.embeddings import pack_embedding, unpack_embedding, EMBEDDING_DIMS
+from agentrecall.longterm.migrate import load_jsonl, run_migrate, run_rebuild
+from conftest import fake_embedding
 
 
 def _make_jsonl(memory_dir, role, category, entries):
@@ -74,7 +74,7 @@ class TestRunMigrate:
     def test_migrate_creates_entries(self, memory_dir, tmp_db, monkeypatch):
         """JSONL files → SQLite entries created."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -102,7 +102,7 @@ class TestRunMigrate:
     def test_migrate_multiple_roles(self, memory_dir, tmp_db, monkeypatch):
         """Multiple role dirs each create entries under correct role."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -127,7 +127,7 @@ class TestRunMigrate:
 
     def test_migrate_preserves_created_at(self, memory_dir, tmp_db, monkeypatch):
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -146,7 +146,7 @@ class TestRunMigrate:
     def test_migrate_with_embeddings(self, memory_dir, tmp_db, monkeypatch):
         """When embed function returns vectors, they're stored as blobs."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _fake_batch_embed,
         )
 
@@ -175,7 +175,7 @@ class TestRunMigrate:
     def test_migrate_skips_root_level_files(self, memory_dir, tmp_db, monkeypatch):
         """JSONL files at root (no role dir) are skipped (< 2 path parts)."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -195,7 +195,7 @@ class TestRunMigrateDryRun:
     def test_dry_run_no_writes(self, memory_dir, tmp_db, monkeypatch, capsys):
         """--dry-run shows what would be migrated without writing."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -219,7 +219,7 @@ class TestRunMigrateDryRun:
     def test_dry_run_reports_summary(self, memory_dir, tmp_db, monkeypatch, capsys):
         """Dry run still prints summary with file/entry counts."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -237,7 +237,7 @@ class TestRunMigrateSkipsDuplicates:
     def test_skips_exact_duplicate_text(self, memory_dir, tmp_db, monkeypatch):
         """run_migrate skips entries already in DB with same role/category/text."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -266,7 +266,7 @@ class TestRunMigrateSkipsDuplicates:
     def test_skips_duplicate_reports_count(self, memory_dir, tmp_db, monkeypatch, capsys):
         """Summary shows skipped count."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -298,7 +298,7 @@ class TestRunMigrateSkipsDuplicates:
     def test_rerun_migration_is_idempotent(self, memory_dir, tmp_db, monkeypatch):
         """Running migrate twice on same data creates no duplicates."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 
@@ -320,7 +320,7 @@ class TestRunRebuild:
     def test_rebuild_embeds_null_entries(self, tmp_db, monkeypatch):
         """run_rebuild re-embeds entries with NULL embeddings."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _fake_batch_embed,
         )
 
@@ -363,7 +363,7 @@ class TestRunRebuild:
             return original_embed(texts)
 
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             counting_embed,
         )
 
@@ -423,7 +423,7 @@ class TestRunRebuild:
             raise RuntimeError("API down")
 
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             failing_embed,
         )
 
@@ -442,7 +442,7 @@ class TestRunRebuild:
     def test_rebuild_returns_1_when_embed_returns_none(self, tmp_db, monkeypatch):
         """No API key (embed returns None) → returns 1."""
         monkeypatch.setattr(
-            "agentmemory.longterm.migrate.get_embeddings_batch",
+            "agentrecall.longterm.migrate.get_embeddings_batch",
             _null_batch_embed,
         )
 

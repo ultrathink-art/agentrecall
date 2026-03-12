@@ -1,4 +1,4 @@
-"""Shared fixtures for agentmemory tests."""
+"""Shared fixtures for agentrecall tests."""
 import math
 import os
 import sqlite3
@@ -6,8 +6,8 @@ import tempfile
 
 import pytest
 
-from agentmemory.core.schema import ensure_schema
-from agentmemory.core.embeddings import EMBEDDING_DIMS
+from agentrecall.core.schema import ensure_schema
+from agentrecall.core.embeddings import EMBEDDING_DIMS
 
 
 @pytest.fixture

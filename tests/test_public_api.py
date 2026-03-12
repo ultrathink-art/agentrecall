@@ -1,9 +1,9 @@
-"""Tests that the public API (from agentmemory import ...) works correctly."""
+"""Tests that the public API (from agentrecall import ...) works correctly."""
 import pytest
 
-from agentmemory import DuplicateError, MemoryStore
-from agentmemory.core.store import DuplicateError as CoreDuplicateError
-from tests.conftest import null_embed_fn
+from agentrecall import DuplicateError, MemoryStore
+from agentrecall.core.store import DuplicateError as CoreDuplicateError
+from conftest import null_embed_fn
 
 
 class TestDuplicateErrorIdentity:
@@ -19,5 +19,5 @@ class TestDuplicateErrorIdentity:
         store.close()
 
     def test_duplicate_error_in_all(self):
-        import agentmemory
-        assert "DuplicateError" in agentmemory.__all__
+        import agentrecall
+        assert "DuplicateError" in agentrecall.__all__

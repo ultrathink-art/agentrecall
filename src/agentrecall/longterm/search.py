@@ -4,8 +4,8 @@ from __future__ import annotations
 import sys
 from typing import Optional
 
-from agentmemory.core.search import MemorySearch
-from agentmemory.core.store import MemoryStore
+from agentrecall.core.search import MemorySearch
+from agentrecall.core.store import MemoryStore
 
 
 def run_search(

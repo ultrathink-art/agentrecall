@@ -3,9 +3,9 @@ import math
 
 import pytest
 
-from agentmemory.core.search import MemorySearch, keyword_fallback, keyword_prefilter
-from agentmemory.core.store import MemoryStore
-from tests.conftest import fake_embedding, make_embed_fn, null_embed_fn
+from agentrecall.core.search import MemorySearch, keyword_fallback, keyword_prefilter
+from agentrecall.core.store import MemoryStore
+from conftest import fake_embedding, make_embed_fn, null_embed_fn
 
 
 class TestSearch:

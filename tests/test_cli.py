@@ -5,9 +5,9 @@ import sys
 
 import pytest
 
-from agentmemory.cli import main
-from agentmemory.core.store import MemoryStore
-from tests.conftest import make_embed_fn, null_embed_fn
+from agentrecall.cli import main
+from agentrecall.core.store import MemoryStore
+from conftest import make_embed_fn, null_embed_fn
 
 
 class TestCLIHelp:

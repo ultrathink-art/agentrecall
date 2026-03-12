@@ -4,8 +4,8 @@ from datetime import date
 
 import pytest
 
-from agentmemory.core.store import MemoryStore, DuplicateError
-from tests.conftest import fake_embedding, make_embed_fn, null_embed_fn
+from agentrecall.core.store import MemoryStore, DuplicateError
+from conftest import fake_embedding, make_embed_fn, null_embed_fn
 
 
 class TestStore:

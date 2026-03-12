@@ -6,13 +6,13 @@ import sqlite3
 from datetime import date
 from typing import Dict, List, Optional, Any
 
-from agentmemory.core.embeddings import (
+from agentrecall.core.embeddings import (
     cosine_similarity,
     get_embedding,
     pack_embedding,
     unpack_embedding,
 )
-from agentmemory.core.schema import get_connection
+from agentrecall.core.schema import get_connection
 
 DEDUP_THRESHOLD = 0.92
 

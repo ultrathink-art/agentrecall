@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from agentmemory.shortterm.check import (
+from agentrecall.shortterm.check import (
     check_file,
     check_directory,
     count_session_log_entries,

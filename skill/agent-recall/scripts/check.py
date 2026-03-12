@@ -6,7 +6,7 @@ Usage:
 """
 import sys
 
-from agentmemory.cli import main as cli_main
+from agentrecall.cli import main as cli_main
 
 
 def main():

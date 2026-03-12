@@ -8,11 +8,11 @@ from datetime import date
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
-from agentmemory.core.embeddings import (
+from agentrecall.core.embeddings import (
     get_embeddings_batch,
     pack_embedding,
 )
-from agentmemory.core.schema import get_connection
+from agentrecall.core.schema import get_connection
 
 
 def load_jsonl(path: str) -> List[Dict[str, Any]]:

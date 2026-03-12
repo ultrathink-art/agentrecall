@@ -1,4 +1,4 @@
-# Agent Memory
+# Agent Recall
 
 Persistent two-tier memory for AI agents. Short-term markdown files (always loaded) + long-term SQLite with semantic search (queried on-demand).
 
@@ -6,48 +6,48 @@ Persistent two-tier memory for AI agents. Short-term markdown files (always load
 
 ```bash
 # Install (zero required deps — SQLite is stdlib)
-pip install agentmemory
+pip install agentrecall
 
 # Optional: enable semantic search/dedup
-pip install agentmemory[embeddings]
+pip install agentrecall[embeddings]
 export OPENAI_API_KEY="sk-..."
 
 # Initialize memory directory
-agentmemory init
+agentrecall init
 ```
 
 ## Quick Reference
 
 ### Store a memory
 ```bash
-agentmemory store <role> <category> "text" --tags tag1,tag2
+agentrecall store <role> <category> "text" --tags tag1,tag2
 ```
 
 ### Search memories
 ```bash
-agentmemory search <role> <category> "query"
+agentrecall search <role> <category> "query"
 # Exit 0 = matches found, exit 1 = no matches
 ```
 
 ### List categories
 ```bash
-agentmemory list <role>
+agentrecall list <role>
 ```
 
 ### Check health
 ```bash
-agentmemory check              # Short-term files
-agentmemory check --long-term  # DB health
-agentmemory check --all        # Both
-agentmemory check --fix        # Auto-prune oversized files
+agentrecall check              # Short-term files
+agentrecall check --long-term  # DB health
+agentrecall check --all        # Both
+agentrecall check --fix        # Auto-prune oversized files
 ```
 
 ## Protocol
 
 1. **Session start**: Read `memory/<role>.md` — your accumulated knowledge
-2. **Before acting**: `agentmemory search <role> <category> "concept"` to check past work
-3. **After acting**: `agentmemory store <role> <category> "what you learned"`
-4. **Session end**: Update `memory/<role>.md` with mistakes/learnings, run `agentmemory check`
+2. **Before acting**: `agentrecall search <role> <category> "concept"` to check past work
+3. **After acting**: `agentrecall store <role> <category> "what you learned"`
+4. **Session end**: Update `memory/<role>.md` with mistakes/learnings, run `agentrecall check`
 
 ## References
 

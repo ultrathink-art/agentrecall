@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "agentmemory"
+name = "agentrecall"
 version = "0.1.0"
 description = "Persistent two-tier memory for AI agents. Short-term markdown + long-term SQLite with semantic search."
 readme = "README.md"
@@ -33,15 +33,15 @@ all = ["openai>=1.0"]
 dev = ["pytest>=7.0", "pytest-cov"]
 
 [project.urls]
-Homepage = "https://github.com/ultrathink-art/agentmemory"
-Repository = "https://github.com/ultrathink-art/agentmemory"
-Issues = "https://github.com/ultrathink-art/agentmemory/issues"
+Homepage = "https://github.com/ultrathink-art/agentrecall"
+Repository = "https://github.com/ultrathink-art/agentrecall"
+Issues = "https://github.com/ultrathink-art/agentrecall/issues"
 
 [project.scripts]
-agentmemory = "agentmemory.cli:main"
+agentrecall = "agentrecall.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/agentmemory"]
+packages = ["src/agentrecall"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
