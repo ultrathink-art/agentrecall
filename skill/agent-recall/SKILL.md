@@ -12,10 +12,10 @@ Persistent two-tier memory for AI agents. Short-term markdown files (always load
 
 ```bash
 # Install (zero required deps — SQLite is stdlib)
-pip install agentrecall-memory
+pip install agent-cerebro
 
 # Optional: enable semantic search/dedup
-pip install agentrecall-memory[embeddings]
+pip install agent-cerebro[embeddings]
 export OPENAI_API_KEY="sk-..."
 
 # Initialize memory directory

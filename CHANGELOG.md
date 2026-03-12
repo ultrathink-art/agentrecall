@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 (2026-03-12)
+
+Renamed PyPI package from `agentrecall-memory` to `agent-cerebro` (v0.1.0). Python import name (`from agentrecall import ...`) and CLI commands (`agentrecall`/`cerebro`) are unchanged.
+
 ## 0.1.1 (2026-03-12)
 
 Renamed PyPI package from `agentrecall` to `agentrecall-memory` (PyPI rejected `agentrecall` as too similar to existing `agent-recall`). Python import name (`from agentrecall import ...`) and CLI commands (`agentrecall store/search/...`) are unchanged.
