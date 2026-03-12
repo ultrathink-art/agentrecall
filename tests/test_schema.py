@@ -98,10 +98,11 @@ class TestGetConnection:
 
 class TestGetDbPath:
     def test_default_path(self, monkeypatch):
+        monkeypatch.delenv("AGENT_CEREBRO_HOME", raising=False)
         monkeypatch.delenv("AGENT_RECALL_HOME", raising=False)
         path = get_db_path()
         assert path.endswith("memory.sqlite3")
-        assert ".agentrecall" in path
+        assert ".agent-cerebro" in path
 
     def test_custom_path(self):
         path = get_db_path("/custom/dir")

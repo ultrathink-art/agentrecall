@@ -1,7 +1,7 @@
-"""Top-level CLI dispatcher for agentrecall.
+"""Top-level CLI dispatcher for Agent Cerebro.
 
 Usage:
-    agentrecall <command> [options]
+    cerebro <command> [options]
 
 Commands:
     store    Store an entry with semantic dedup
@@ -18,6 +18,14 @@ import os
 import sys
 
 from agentrecall import __version__
+
+
+def _resolve_home() -> str:
+    """Resolve memory home: AGENT_CEREBRO_HOME > AGENT_RECALL_HOME > ~/.agent-cerebro"""
+    return os.environ.get(
+        "AGENT_CEREBRO_HOME",
+        os.environ.get("AGENT_RECALL_HOME", os.path.expanduser("~/.agent-cerebro"))
+    )
 
 
 def _add_store_parser(subparsers):
@@ -97,7 +105,7 @@ def _cmd_check(args):
     from agentrecall.shortterm.check import check_directory, MAX_LINES, MAX_SESSION_LOG_ENTRIES
     from agentrecall.core.schema import get_db_path
 
-    memory_dir = args.dir or os.environ.get("AGENT_RECALL_HOME", os.path.expanduser("~/.agentrecall"))
+    memory_dir = args.dir or _resolve_home()
     db_path = args.db or get_db_path(memory_dir)
 
     if args.long_term and not args.all:
@@ -139,11 +147,11 @@ def _cmd_check(args):
     if any_fail:
         print(f"FAILED: files exceed {MAX_LINES}-line limit")
         if not args.fix:
-            print("Run `agentrecall check --fix` to auto-prune session logs")
+            print("Run `cerebro check --fix` to auto-prune session logs")
     elif any_warn:
         print(f"WARN: Some files have >{MAX_SESSION_LOG_ENTRIES} session log entries")
         if not args.fix:
-            print("Run `agentrecall check --fix` to auto-prune")
+            print("Run `cerebro check --fix` to auto-prune")
     else:
         print("All files within limits")
 
@@ -166,7 +174,7 @@ def _check_long_term(db_path: str) -> int:
 
     if not os.path.exists(db_path):
         print(f"\u2717 DB not found: {db_path}")
-        print("  Long-term memory not initialized. Run `agentrecall init` to create.")
+        print("  Long-term memory not initialized. Run `cerebro init` to create.")
         return 1
 
     db_size = os.path.getsize(db_path)
@@ -232,15 +240,13 @@ def _cmd_init(args):
     from agentrecall.core.schema import get_connection, get_db_path
     from agentrecall.shortterm.template import generate_template
 
-    memory_home = args.dir or os.environ.get(
-        "AGENT_RECALL_HOME", os.path.expanduser("~/.agentrecall")
-    )
+    memory_home = args.dir or _resolve_home()
     os.makedirs(memory_home, exist_ok=True)
 
     db_path = get_db_path(memory_home)
     get_connection(db_path)
 
-    print(f"Initialized agentrecall at {memory_home}")
+    print(f"Initialized Agent Cerebro at {memory_home}")
     print(f"  Database: {db_path}")
     print()
     print("Create a memory file for an agent role:")
@@ -252,9 +258,7 @@ def _cmd_migrate(args):
     from agentrecall.longterm.migrate import run_migrate, run_rebuild
     from agentrecall.core.schema import get_db_path
 
-    memory_dir = args.dir or os.environ.get(
-        "AGENT_RECALL_HOME", os.path.expanduser("~/.agentrecall")
-    )
+    memory_dir = args.dir or _resolve_home()
     db_path = args.db or get_db_path(memory_dir)
 
     if args.rebuild:
@@ -264,12 +268,12 @@ def _cmd_migrate(args):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        prog="agentrecall",
-        description="Persistent two-tier memory for AI agents",
+        prog="cerebro",
+        description="Agent Cerebro — persistent two-tier memory for AI agents",
     )
     parser.add_argument(
         "--version", action="version",
-        version=f"agentrecall {__version__}",
+        version=f"agent-cerebro {__version__}",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
