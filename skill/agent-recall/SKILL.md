@@ -1,3 +1,9 @@
+---
+name: agent-memory
+description: Persistent two-tier memory for AI agents. Use when storing learnings, searching past work, checking memory health, or following the session start/end memory protocol.
+allowed-tools: Bash(agentrecall *), Bash(python *), Read, Glob
+---
+
 # Agent Recall
 
 Persistent two-tier memory for AI agents. Short-term markdown files (always loaded) + long-term SQLite with semantic search (queried on-demand).
