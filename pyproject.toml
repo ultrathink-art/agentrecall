@@ -39,6 +39,7 @@ Issues = "https://github.com/ultrathink-art/agentrecall/issues"
 
 [project.scripts]
 agentrecall = "agentrecall.cli:main"
+agentmemory = "agentrecall.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agentrecall"]
