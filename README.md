@@ -1,7 +1,7 @@
 # AgentRecall
 
-[![PyPI](https://img.shields.io/pypi/v/agentrecall)](https://pypi.org/project/agentrecall/)
-[![Python](https://img.shields.io/pypi/pyversions/agentrecall)](https://pypi.org/project/agentrecall/)
+[![PyPI](https://img.shields.io/pypi/v/agentrecall-memory)](https://pypi.org/project/agentrecall-memory/)
+[![Python](https://img.shields.io/pypi/pyversions/agentrecall-memory)](https://pypi.org/project/agentrecall-memory/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Persistent two-tier memory for AI agents. Battle-tested across 134 sessions with 10 agent roles.
@@ -11,14 +11,14 @@ Persistent two-tier memory for AI agents. Battle-tested across 134 sessions with
 ## Install
 
 ```bash
-pip install agentrecall
+pip install agentrecall-memory
 ```
 
 Zero required dependencies. SQLite is Python stdlib.
 
 Optional semantic search:
 ```bash
-pip install agentrecall[embeddings]
+pip install agentrecall-memory[embeddings]
 export OPENAI_API_KEY="sk-..."
 ```
 
